@@ -1,0 +1,182 @@
+/* Do NOT use UPPERCASE for id/class definition... it wont work with the support.js method! (objects properties names are lowercase)*/
+.layer {
+    color : #00cbff;
+    weight : 0.5;
+}
+
+.focusedobject {
+    color: #FFFF00;
+}
+
+.info {
+    padding: 6px 8px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: white;
+    background: rgba(255,255,255,0.9);
+    box-shadow: 0 0 25px rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+.info h4 {
+    margin: 0 0 5px;
+    color: #777;
+}
+
+.legend {
+    line-height: 18px;
+    color: #555;
+}
+.legend i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
+}
+
+.wrapper {
+    padding-top: 3cm;
+}
+
+ul.dropdown-menu{
+    position: absolute;
+    z-index: 10000;
+}
+
+h1 {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size: 34px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 500;
+	line-height: 26.4px;
+  padding: 0.5cm 1cm 0.5cm 1cm;
+}
+h2 {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size: 22px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 500;
+	line-height: 26.4px;
+  padding: 0.3cm 1cm 0.3cm 1cm;
+}
+h3 {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size: 16px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 400;
+	line-height: 15.4px;
+  padding: 0cm 0cm 0cm 0cm;
+}
+p {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size: 16px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 400;
+	line-height: 20px;
+  padding: 0cm 0cm 0cm 0cm;
+}
+blockquote {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size: 21px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 400;
+	line-height: 30px;
+  padding: 0.4cm 1cm 0.4cm 1cm;
+}
+pre {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size: 14px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 400;
+	line-height: 20px;
+  padding: 0cm 0cm 0cm 0cm;
+}
+
+h4 {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size: 12px;
+  padding: 0.4cm 0cm 0cm 0cm;
+}
+
+div.fixed_title {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color:#337ab7;
+    z-index: 10001;
+}
+
+div.fixed_tabs {
+    position: fixed;
+    top: 107;
+    left: 0;
+    width: 100%;
+    background-color:#FFFFFF;
+    z-index: 10001;
+    padding:0cm 0cm 0cm 0cm
+}
+
+.scrollable {
+    width:90%;
+}
+
+.fixed {
+    width:25%;
+    left:0;
+}
+
+.curve {
+    width:15%;
+
+}
+
+div.low {
+    top: 150;
+}
+
+div.lowB {
+    top: 50;
+}
+
+ul.tab {
+    border: solid;
+    border-color: #337ab7;
+}
+
+button.mini {
+    border: none;
+    border-radius: 5px;
+    width: 7.35%;
+    padding:0cm 0cm 0cm 0cm
+}
+
+button {
+    border: none;
+    border-radius: 5px;
+    background-color:#337ab7;
+    width: 15%;
+    padding:0cm 0cm 0cm 0cm
+}
+
+div.padding {
+    padding:0cm 0cm 0cm 0cm
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+tr:hover{background-color:#f5f5f5}

@@ -1,0 +1,99 @@
+<html ng-app="simulation">
+<head>
+    <!--Online resources-->
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+    <script src="http://leaflet.github.io/Leaflet.heat/dist/leaflet-heat.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js" charset="utf-8"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-route.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+    <!--Local resources -->
+    <script src="/socket.io/socket.io.js"></script>
+    <link rel="stylesheet" href="css/viewer.css"/>
+    <link href="js/c3/c3.css" rel="stylesheet" type="text/css">
+    <link href="js/colorbrewer/colorbrewer.css" rel="stylesheet" type="text/css">
+
+
+    <!--Code-->
+    <script src="js/globals.js"></script>       <!-- Common server and client variables -->
+    <script src="js/support.js"></script>       <!-- Client-side support functions -> Should be load after all map-related CSS and before any other CSS -->
+    <script src="js/map.js"></script>           <!-- Client-side interaction methods -->
+    <script src="js/actions.js"></script>       <!-- Client-server socket communication -->
+    <script src="js/simulation.js"></script>     <!-- Simulation App -->
+    <script src="js/leaflet-providers.js"></script>
+    <script src="js/c3/c3.min.js"></script>
+    <script src="js/d3/d3.min.js" charset="utf-8"></script>
+    <script src="js/colorbrewer/colorbrewer.js"></script>
+
+
+    <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+    <!-- Load d3.js and c3.js -->
+
+
+    <!--Additional CSS files -->
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css"/>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+</head>
+
+<body>
+<div class="container wrapper">
+  <div class="fixed_title">
+    <h1><font color="white">TOMSA</font></h1>
+  </div>
+  <div class="row">
+    <div class="col-md-2">
+      <div class="affix low">
+        <div ng-controller="SimulationController as simulation">
+          <form class="form-horizontal" role="form">
+            <div class="container">
+              <h3 style="padding:0cm 0cm 0cm 0cm"><font color="#337ab7">Simulation Step {{simulation.time}}</font></h3>
+            </div>
+            <div class="row padding" style="padding:0cm 0cm 0cm 1cm">
+              <button ng-click="simulation.begin()"><p style="padding:0.2cm 0cm 0cm 0cm"><font color="#FFFFFF">Begin Simulation</font></p></button>
+            </div>
+            <div class="row padding" style="padding:0.5cm 0cm 0cm 1cm">
+              <button class="mini" ng-click="simulation.previous()"><p style="padding:0.2cm 0cm 0cm 0cm"><font color="#FFFFFF"><<</font></p></button>
+              <button class="mini" ng-click="simulation.next()"><p style="padding:0.2cm 0cm 0cm 0cm"><font color="#FFFFFF">>></font></p></button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-10 lowB">
+      <div class="scrollable pull-right">
+        <div class="row">
+          <div id="map" style="height:70%;">
+            The map is going to fill this div...
+          </div>
+        </div>
+        <div class="row" style="height:3%;"></div>
+        <div class="row">
+          <h3><font color="#337ab7">Rented-Owner Occupied Proportion</font></h3>
+        </div>
+        <div id="indicator1">
+          Start simulation to show data
+        </div>
+        <div class="row">
+          $$ROP_i = \frac{nR_i}{nO_i}, \forall i \in S$$
+          Where:
+          <ul>
+              <li>
+                \(S = \{0,1,..,number\ of\ steps - 1\}\)
+              </li>
+              <li>
+                \(nR_i = number\ of\ rented\ properties\ in\ step\ i\)
+              </li>
+              <li>
+                \(nO_i = number\ of\ occupied\ properties\ in\ step\ i\)
+              </li>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    createMap();
+  </script>
+</body>
+</html>

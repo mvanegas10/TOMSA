@@ -1,0 +1,30 @@
+<html>
+<head>
+    <!--Online resources-->
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+    <script src="http://geojam.net/static/leaflet/plugins/leaflet-providers/leaflet-providers.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js" charset="utf-8"></script>
+
+    <!--Local resources -->
+    <script src="/socket.io/socket.io.js"></script>
+    <link rel="stylesheet" href="css/viewer.css"/>
+
+    <!--Code-->
+    <script src="js/globals.js"></script>       <!-- Common server and client variables -->
+    <script src="js/support.js"></script>       <!-- Client-side support functions -> Should be load after all map-related CSS and before any other CSS -->
+    <script src="js/map.js"></script>           <!-- Client-side interaction methods -->
+    <script src="js/actions.js"></script>       <!-- Client-server socket communication -->
+
+    <!--Additional CSS files -->
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css"/>
+</head>
+
+<body>
+<div id="map" style="height: 100%;">
+    The map is going to fill this div...
+</div>
+<script>
+    createMap();
+</script>
+</body>
+</html>
