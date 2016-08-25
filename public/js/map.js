@@ -28,6 +28,9 @@ function addIndicator1Chart(msg){
         data: {
             columns: [col],
             type: 'bar',
+            onclick: function(d,i) { 
+                //Implement
+            }
         },
         zoom: {
             enabled: true
@@ -86,7 +89,10 @@ function showData(msg) {
         }
     }
     else if (msg.type === 'point'){
-        equipments = pointLayer(msg);
+        if (equipments === undefined) equipments = pointLayer(msg);
+        else equipments._layers += pointLayer(msg)._layers;
+        console.log(equipments);
+        overlayMaps.Equipments = equipments;
     }
 }
 

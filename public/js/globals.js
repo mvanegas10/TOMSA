@@ -1,6 +1,7 @@
 var INITIALIZE = 'initialize';
 var DRAW_MAP = 'draw';
 var SHOW_DATA = 'show data';
+var SHOW_ADD_DATA = 'show additional data';
 var PREVIOUS = 'previous';
 var NEXT = 'next';
 var I1_CHART = 'i1 chart';
@@ -9,6 +10,7 @@ try {
     module.exports.INITIALIZE = INITIALIZE;
     module.exports.DRAW_MAP = DRAW_MAP;
     module.exports.SHOW_DATA = SHOW_DATA;
+    module.exports.SHOW_ADD_DATA = SHOW_ADD_DATA;
     module.exports.PREVIOUS = PREVIOUS;
     module.exports.NEXT = NEXT;
     module.exports.I1_CHART = I1_CHART;

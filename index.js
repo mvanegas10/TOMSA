@@ -56,8 +56,18 @@ io.on('connection', function(socket) {
     // App specific methods:
     socket.on(glbs.INITIALIZE, function() {
         getROP(socket.id);
-        getSegregationIndex(socket.id, 0);
         getData(socket.id, 'red_primaria', 'polyline');
+        getAditionalData(socket.id, 'bienestar', 'point');
+        // getAditionalData(socket.id, 'culto', 'point');
+        // getAditionalData(socket.id, 'cultura', 'point');
+        // getAditionalData(socket.id, 'cysf', 'point');
+        // getAditionalData(socket.id, 'deportes', 'point');
+        // getAditionalData(socket.id, 'educacion', 'point');
+        // getAditionalData(socket.id, 'edusup', 'point');
+        // getAditionalData(socket.id, 'bienestar', 'point');
+        // getAditionalData(socket.id, 'bienestar', 'point');
+        // getAditionalData(socket.id, 'bienestar', 'point');
+        // getAditionalData(socket.id, 'bienestar', 'point');
         getInitialState(socket.id);
         console.log(':: This is a ' + glbs.INITIALIZE + ' request...');
     });
@@ -79,12 +89,41 @@ io.on('connection', function(socket) {
 // Functions
 // ------------------------------------------------------
 
+
+function getAditionalData(socketId, table, type) {
+    var query = 'SELECT *, ST_AsText(geom) AS wkt FROM ' + table + '';
+    var parameters = {
+        querystring: query,
+    };
+
+    geo.query(parameters, function(json) {
+        var msg = {};
+        msg.type = 'point';
+        msg.features = [];
+        for (var i = 0; i < json.length; i++) {
+            try{
+                var geometry = parse(json[i].wkt);
+                var properties = {};
+                var type = "Feature";
+                properties.gid = json[i].gid;
+                properties.type = table;
+                var feature = {geometry:geometry,properties:properties,type:type};
+                msg.features.push(feature);
+              }
+              catch (err){}
+        }
+        msg.table = 'upz';
+        clients[socketId].emit(glbs.SHOW_ADD_DATA, msg); // Sending to the client the new event...
+    });
+
+}
+
 function getData(socketId, table, type) {
-    console.log(table);
     var parameters = {
         geometry: 'geom',
         tableName: table,
         properties: 'all',
+        debug: '',
     };
 
     geo.geoQuery(parameters, function(json) {

@@ -15,6 +15,11 @@
       // console.log(SHOW_DATA+' request: '+msg);
       showData(msg);
     });
+    
+    _this.socket.on(SHOW_ADD_DATA, function (msg){
+      // console.log(SHOW_DATA+' request: '+msg);
+      showData(msg);
+    });
 
     _this.socket.on(I1_CHART, function (msg){
       console.log(I1_CHART+' request');
