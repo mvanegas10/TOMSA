@@ -24,13 +24,23 @@ function addIndicator1Chart(msg){
         col.push(value);
     }
     var chart = c3.generate({
+        size: {
+            height: 240,
+            width: 455
+        },
         bindto: '#indicator1',
         data: {
+            colors: {
+              ROP:'#f0f0f0'
+            },
             columns: [col],
-            type: 'bar',
-            onclick: function(d,i) { 
+            type: 'line',
+            onclick: function(d,i) {
                 //Implement
-            }
+            },
+        },
+        legend: {
+            show: false
         },
         zoom: {
             enabled: true
@@ -42,9 +52,6 @@ function addIndicator1Chart(msg){
             y: {
                 label: 'ROP Value'
             },
-        },
-        legend: {
-            position: 'right'
         },
         grid: {
             x: {
@@ -89,10 +96,14 @@ function showData(msg) {
         }
     }
     else if (msg.type === 'point'){
-        if (equipments === undefined) equipments = pointLayer(msg);
-        else equipments._layers += pointLayer(msg)._layers;
-        console.log(equipments);
-        overlayMaps.Equipments = equipments;
+        if(baseMaps.Equipments === undefined){
+           baseMaps.Equipments = pointLayer(msg);
+           equipments = msg;
+        }
+        else {
+            equipments.features.concat(msg.features);
+            baseMaps.Equipments = pointLayer(msg);
+        }
     }
 }
 
@@ -111,13 +122,13 @@ function addLayer () {
     if (UPZlayer !== undefined) baseMaps.UPZ = UPZlayer;
     if (redPrimariaLayer !== undefined) baseMaps.RedPrimaria = redPrimariaLayer;
     if (redSecundariaLayer !== undefined) baseMaps.RedSecundaria = redSecundariaLayer;
-    if (equipments !== undefined) overlayMaps.Equipments = equipments;
+    if (equipments !== undefined) baseMaps.Equipments = pointLayer(equipments);
     if (properties !== undefined) {
-      overlayMaps.Properties = properties;
-      UPZlayer.addTo(map);
-      properties.addTo(map);
+        overlayMaps.Properties = properties;
+        UPZlayer.addTo(map);
+        properties.addTo(map);
     }
-
+    console.log(equipments);
     L.control.layers(baseMaps, overlayMaps, {
         position: 'topleft',
         collapsed: false
@@ -129,6 +140,9 @@ function addLayer () {
 // This function adds each layer legend
 function addLegends() {
     var pointsLegend = L.control({
+        position: 'bottomright'
+    });
+    var divisionsLegend = L.control({
         position: 'bottomright'
     });
 
@@ -144,11 +158,27 @@ function addLegends() {
         }
         return div;
     };
+    divisionsLegend.onAdd = function(map) {
+        var div = L.DomUtil.create('div', 'divisions legend'),
+            values = getDivisions(),
+            labels = [];
+        div.innerHTML += 'Segregation Index<br>';
+        for (var i = 0; i < values.length; i++) {
+            div.innerHTML +=
+                '<i style="background:' + setMultipolygonColor((values[i] + 0.1)/100) + '" ></i> ' +
+                (values[i]*100 + "%") + (values[i + 1] ? ' &ndash; ' + (values[i + 1]*100 + "%") +'<br>' : ' +');
+        }
+        return div;
+    };
+
 
     map.on('overlayadd', function(eventLayer) {
         if (eventLayer.name === 'Properties') {
             this.removeControl(pointsLegend);
             pointsLegend.addTo(this);
+        }
+        if (eventLayer.name === 'UPZ') {
+            divisionsLegend.addTo(this);
         }
     });
 
@@ -157,8 +187,12 @@ function addLegends() {
             this.removeControl(pointsLegend);
             pointsLegend.addTo(this);
         }
+        if (eventLayer.name === 'UPZ') {
+            this.removeControl(divisionsLegend);
+        }
     });
     pointsLegend.addTo(map);
+    divisionsLegend.addTo(map);
 }
 
 // Creates the result point layer
@@ -168,18 +202,38 @@ function pointLayer(msg) {
         onEachFeature: function(feature, layer) { // The event for each one of the  dictionary elements --> Each feature is one spatial object
             layer.on({ // When this layer is active (this is a leaflet-provided method)
                 mouseover: function() { // Here we are going to change the color and show the attributes of the object that is under the mouse...
-                    info.update(feature.properties); // --> Update the info <div>
-                    layer.setStyle(css['.focusedobject']); // --> and change the style...
+                    if (feature.properties.state === undefined){
+                        layer.setStyle({
+                            fillColor: colorbrewer.PuBu[9][4],
+                            radius: 5,
+                            fillOpacity: 0.2,
+                            stroke: false,
+                        });
+                    }
+                    else{
+                        info.update(feature.properties); // --> Update the info <div>
+                        layer.setStyle(css['.focusedobject']); // --> and change the style...
+                    }
                 },
                 mouseout: function() { // When the mouse leaves...
-                    info.update(); // --> Clear the info <div>
-                    layer.setStyle({
-                        fillColor: setColorState(feature.properties.state),
-                        radius: 4,
-                        fillOpacity: 1,
-                        stroke: true,
-                        color: 'black',
-                    }); // --> and set the original style...
+                    if (feature.properties.state === undefined){
+                        layer.setStyle({
+                            fillColor: colorbrewer.PuBu[9][4],
+                            radius: 5,
+                            fillOpacity: 0.2,
+                            stroke: false,
+                        });
+                    }
+                    else{
+                      info.update(); // --> Clear the info <div>
+                      layer.setStyle({
+                          fillColor: setColorState(feature.properties.state),
+                          radius: 4,
+                          fillOpacity: 1,
+                          stroke: true,
+                          color: 'black',
+                      }); // --> and set the original style...
+                    }
                 },
                 click: function(e) {
                     map.fitBounds(e.target.getBounds()); // On click we are going to center the object in the view...
@@ -196,13 +250,23 @@ function pointLayer(msg) {
             });
         },
         style: function(feature) {
-            return {
-                fillColor: setColorState(feature.properties.state),
-                radius: 4,
-                fillOpacity: 1,
-                stroke: true,
-                color: 'black',
-            };
+            if (feature.properties.state === undefined){
+                return {
+                    fillColor: colorbrewer.PuBu[9][4],
+                    radius: 5,
+                    fillOpacity: 0.2,
+                    stroke: false,
+                };
+            }
+            else{
+                return {
+                    fillColor: setColorState(feature.properties.state),
+                    radius: 4,
+                    fillOpacity: 1,
+                    stroke: true,
+                    color: 'black',
+                };
+            }
         }
     });
 }
@@ -309,10 +373,14 @@ function polylineLayer(msg) {
 }
 
 function setColorState(state) {
-    if (state === "For sale") return colorbrewer.RdYlGn[4][3];
-    else if (state === "Seeking tenant") return  colorbrewer.RdYlGn[4][2];
-    else if (state === "Rented") return colorbrewer.RdYlGn[4][1];
-    else  return  colorbrewer.RdYlGn[4][0];
+    if (state === "For sale") return colorbrewer.Dark2[7][4];
+    else if (state === "Seeking tenant") return  colorbrewer.Dark2[7][2];
+    else if (state === "Rented") return colorbrewer.Dark2[7][1];
+    else  return  colorbrewer.Dark2[7][0];
+}
+
+function getDivisions() {
+    return [0,0.17,0.33,0.50,0.67,0.83];
 }
 
 // This function returns an array with the possible speed colors

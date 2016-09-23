@@ -8,8 +8,14 @@
     color: #FFFF00;
 }
 
+.nopadding {
+   padding: 0 !important;
+   margin: 0 !important;
+}
+
 .info {
-    padding: 6px 8px;
+    padding: 0;
+    margin: 0;
     font: 14px/16px Arial, Helvetica, sans-serif;
     background: white;
     background: rgba(255,255,255,0.9);
@@ -34,7 +40,7 @@
 }
 
 .wrapper {
-    padding-top: 3cm;
+    padding: 1.8cm 0.9cm 0cm 0.8cm;
 }
 
 ul.dropdown-menu{
@@ -44,21 +50,14 @@ ul.dropdown-menu{
 
 h1 {
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-	font-size: 34px;
-	font-style: normal;
-	font-variant: normal;
-	font-weight: 500;
-	line-height: 26.4px;
-  padding: 0.5cm 1cm 0.5cm 1cm;
+	font-size: 26px;
+  padding: 0cm 0cm 0.2cm 0.2cm;
 }
 h2 {
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 	font-size: 22px;
-	font-style: normal;
-	font-variant: normal;
-	font-weight: 500;
-	line-height: 26.4px;
-  padding: 0.3cm 1cm 0.3cm 1cm;
+
+  padding: 0cm 0cm 0.2cm 1cm;
 }
 h3 {
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
@@ -67,7 +66,7 @@ h3 {
 	font-variant: normal;
 	font-weight: 400;
 	line-height: 15.4px;
-  padding: 0cm 0cm 0cm 0cm;
+  padding: 0cm 0cm 0cm 0.2cm;
 }
 p {
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
@@ -99,8 +98,14 @@ pre {
 
 h4 {
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-	font-size: 12px;
+	font-size: 15px;
   padding: 0.4cm 0cm 0cm 0cm;
+}
+
+h5 {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size: 8px;
+  padding: 0cm 0cm 0cm 0.5cm;
 }
 
 div.fixed_title {
@@ -108,32 +113,35 @@ div.fixed_title {
     top: 0;
     left: 0;
     width: 100%;
-    background-color:#337ab7;
+    background-color:#252525;
     z-index: 10001;
 }
 
-div.fixed_tabs {
+div.fixed_legend {
     position: fixed;
-    top: 107;
+    top: 1.4cm;
     left: 0;
     width: 100%;
-    background-color:#FFFFFF;
+    length: 20%;
+    background-color:#525252;
     z-index: 10001;
-    padding:0cm 0cm 0cm 0cm
 }
 
-.scrollable {
-    width:90%;
+div.scrollable {
+    width:98.5%;
+    left: 0;
+    right: 0;
 }
 
-.fixed {
-    width:25%;
-    left:0;
+div.fixed {
+    left:10cm;
+    length: 100px;
+    width:253%;
+    background-color:#737373;
 }
 
 .curve {
     width:15%;
-
 }
 
 div.low {
@@ -141,7 +149,10 @@ div.low {
 }
 
 div.lowB {
-    top: 50;
+    top: 120;
+    left: 0;
+    right: 0;
+    padding:0cm 0cm 0cm 0cm;
 }
 
 ul.tab {
@@ -164,8 +175,12 @@ button {
     padding:0cm 0cm 0cm 0cm
 }
 
+div.button {
+    padding:1cm 0cm 0cm 0cm;
+}
+
 div.padding {
-    padding:0cm 0cm 0cm 0cm
+    padding:0cm 0cm 0cm 0cm;
 }
 
 table {
@@ -177,6 +192,10 @@ th, td {
     padding: 8px;
     text-align: left;
     border-bottom: 1px solid #ddd;
+}
+
+li {
+  color: #f0f0f0;
 }
 
 tr:hover{background-color:#f5f5f5}

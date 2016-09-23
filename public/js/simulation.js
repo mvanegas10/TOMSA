@@ -4,6 +4,10 @@
   app.controller('SimulationController', function(){
     var _this = this;
     _this.socket = io();
+    _this.begin = begin;
+    _this.previous = previous;
+    _this.next = next;
+    _this.startSim = false;
 
     _this.socket.on(DRAW_MAP, function (msg) {
       console.log(DRAW_MAP+' request: '+msg);
@@ -26,13 +30,11 @@
       addIndicator1Chart(msg);
     });
 
-    _this.begin = begin;
-    _this.previous = previous;
-    _this.next = next;
     if (_this.time === undefined) _this.time = 0;
 
     function begin(){
       _this.socket.emit(INITIALIZE);
+      _this.startSim = true;
     }
 
     function previous(){

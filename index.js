@@ -32,8 +32,8 @@ app.get('/', function(req, res) {
     res.sendFile(__dirname + '/index.html'); // Setting up the server root file...
 });
 
-http.listen(8082, function() { // Setting ip the server port...
-    console.log('Server ready and listening on port:8082');
+http.listen(3000, function() { // Setting ip the server port...
+    console.log('Server ready and listening on port:9345');
 });
 
 // ------------------------------------------------------
@@ -57,17 +57,17 @@ io.on('connection', function(socket) {
     socket.on(glbs.INITIALIZE, function() {
         getROP(socket.id);
         getData(socket.id, 'red_primaria', 'polyline');
-        getAditionalData(socket.id, 'bienestar', 'point');
-        // getAditionalData(socket.id, 'culto', 'point');
-        // getAditionalData(socket.id, 'cultura', 'point');
-        // getAditionalData(socket.id, 'cysf', 'point');
-        // getAditionalData(socket.id, 'deportes', 'point');
-        // getAditionalData(socket.id, 'educacion', 'point');
-        // getAditionalData(socket.id, 'edusup', 'point');
-        // getAditionalData(socket.id, 'bienestar', 'point');
-        // getAditionalData(socket.id, 'bienestar', 'point');
-        // getAditionalData(socket.id, 'bienestar', 'point');
-        // getAditionalData(socket.id, 'bienestar', 'point');
+        getAdditionalData(socket.id, 'bienestar', 'point');
+        getAdditionalData(socket.id, 'culto', 'point');
+        getAdditionalData(socket.id, 'cultura', 'point');
+        getAdditionalData(socket.id, 'cysf', 'point');
+        getAdditionalData(socket.id, 'deportes', 'point');
+        getAdditionalData(socket.id, 'educacion', 'point');
+        getAdditionalData(socket.id, 'edusup', 'point');
+        getAdditionalData(socket.id, 'recintos_feriales', 'point');
+        getAdditionalData(socket.id, 'sa', 'point');
+        getAdditionalData(socket.id, 'salud', 'point');
+        getAdditionalData(socket.id, 'seguridad', 'point');
         getInitialState(socket.id);
         console.log(':: This is a ' + glbs.INITIALIZE + ' request...');
     });
@@ -90,7 +90,7 @@ io.on('connection', function(socket) {
 // ------------------------------------------------------
 
 
-function getAditionalData(socketId, table, type) {
+function getAdditionalData(socketId, table, type) {
     var query = 'SELECT *, ST_AsText(geom) AS wkt FROM ' + table + '';
     var parameters = {
         querystring: query,

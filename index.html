@@ -37,57 +37,67 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 </head>
 
-<body>
-<div class="container wrapper">
+<body style="background-color:#737373">
+<div class="container nopadding">
   <div class="fixed_title">
-    <h1><font color="white">TOMSA</font></h1>
+    <h3><font color="white">TOMSA</font></h3>
   </div>
-  <div class="row">
-    <div class="col-md-2">
-      <div class="affix low">
-        <div ng-controller="SimulationController as simulation">
-          <form class="form-horizontal" role="form">
-            <div class="container">
-              <h3 style="padding:0cm 0cm 0cm 0cm"><font color="#337ab7">Simulation Step {{simulation.time}}</font></h3>
-            </div>
-            <div class="row padding" style="padding:0cm 0cm 0cm 1cm">
-              <button ng-click="simulation.begin()"><p style="padding:0.2cm 0cm 0cm 0cm"><font color="#FFFFFF">Begin Simulation</font></p></button>
-            </div>
-            <div class="row padding" style="padding:0.5cm 0cm 0cm 1cm">
-              <button class="mini" ng-click="simulation.previous()"><p style="padding:0.2cm 0cm 0cm 0cm"><font color="#FFFFFF"><<</font></p></button>
-              <button class="mini" ng-click="simulation.next()"><p style="padding:0.2cm 0cm 0cm 0cm"><font color="#FFFFFF">>></font></p></button>
-            </div>
-          </form>
-        </div>
+  <div class="fixed_legend">
+    <div class="row" ng-controller="SimulationController as simulation">
+      <div class="col-md-2">
+        <h2><font color="white">URBAN MODEL SIMULATOR</font></h2>
       </div>
+      <div class="col-md-2">
+        <form class="form-horizontal" role="form" style="padding:1cm 0cm 0cm 0cm;">
+          <button style="width:120px;height:55px;background-color:#f0f0f0;" ng-click="simulation.begin()">
+            <p style="padding:0.2cm 0cm 0cm 0cm"><b>Start Simulation</b></p>
+          </button>
+        </form>
+      </div>
+      <div class="col-md-2" style="padding:0cm 0cm 0cm 0cm;">    
+        <form class="form-horizontal" role="form">
+          <h4 ng-show="simulation.startSim" style="font-weight:lighter;padding:0.5cm 0cm 0cm 0.5cm;"><font color="white">Step: {{simulation.time}}</font></h4> 
+          <img ng-src="http://icons.veryicon.com/png/System/Icons8%20Metro%20Style/Pager%20Previous.png" ng-click="simulation.previous()" width="45" ng-show="simulation.startSim"> 
+          <img ng-src="http://icons.veryicon.com/png/System/Icons8%20Metro%20Style/Pager%20Next.png" ng-click="simulation.next()" width="45" ng-show="simulation.startSim"> 
+        </form>
+      </div>
+      <div class="col-md-6"></div>
     </div>
+  </div>
+  <div class="row wrapper">
     <div class="col-md-10 lowB">
-      <div class="scrollable pull-right">
+      <div class="scrollable pull-left">
         <div class="row">
-          <div id="map" style="height:70%;">
+          <div id="map" style="height:77%;">
             The map is going to fill this div...
           </div>
         </div>
-        <div class="row" style="height:3%;"></div>
+      </div>
+    </div>
+    <div class="col-md-2 lowB" >
+      <div class="fixed">
         <div class="row">
-          <h3><font color="#337ab7">Rented-Owner Occupied Proportion</font></h3>
+          <h4 style="padding:0cm 0cm 0cm 3.5cm;font-weight: lighter;"><font color="#f0f0f0">Rented-Owner Occupied Proportion</font></h4>
         </div>
         <div id="indicator1">
-          Start simulation to show data
+          <h4 style="font-weight: lighter;padding:0cm 0cm 0cm 0.5cm;"><font color="#f0f0f0">Start simulation to show data</font></h4>
         </div>
         <div class="row">
-          $$ROP_i = \frac{nR_i}{nO_i}, \forall i \in S$$
-          Where:
-          <ul>
-              <li>
-                \(S = \{0,1,..,number\ of\ steps - 1\}\)
-              </li>
-              <li>
-                \(nR_i = number\ of\ rented\ properties\ in\ step\ i\)
-              </li>
-              <li>
-                \(nO_i = number\ of\ occupied\ properties\ in\ step\ i\)
-              </li>
+          <h5><font color="#f0f0f0">$$ROP_i = \frac{nR_i}{nO_i}, \forall i \in S$$</font></h5>
+              <h4 style="padding:0cm 0cm 0cm 0.9cm;font-weight: lighter;"><font color="#f0f0f0">Where:</font></h4>
+              <ul>
+                <li>
+                  <h5 style="padding:0cm 0cm 0cm 0.9cm;font-weight: lighter;"><font color="#f0f0f0">\(S = \{0,1,..,number\ of\ steps - 1\}\)</font></h5>
+                </li>
+                <li>
+                  <h5 style="padding:0cm 0cm 0cm 0.9cm;font-weight: lighter;"><font color="#f0f0f0">\(nR_i = number\ of\ rented\ properties\ in\ step\ i\)</font></h5>
+                </li>
+                <li>
+                  <h5 style="padding:0cm 0cm 0cm 0.9cm;font-weight: lighter;"><font color="#f0f0f0">\(nO_i = number\ of\ occupied\ properties\ in\ step\ i\)</font></h5>
+                </li>
+              </ul>
+            </h5>
+          </div>
         </div>
       </div>
     </div>
