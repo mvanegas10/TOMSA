@@ -12,6 +12,8 @@ var fs = require('fs');
 
 var glbs = require('./public/js/globals.js'); // With this we made the client and server shared variables available to the server
 
+var port = 3000;
+
 // ------------------------------------------------------
 // Variables
 // ------------------------------------------------------
@@ -32,8 +34,8 @@ app.get('/', function(req, res) {
     res.sendFile(__dirname + '/index.html'); // Setting up the server root file...
 });
 
-http.listen(3000, function() { // Setting ip the server port...
-    console.log('Server ready and listening on port:9345');
+http.listen(port, function() { // Setting ip the server port...
+    console.log('Server ready and listening on port: ' + port);
 });
 
 // ------------------------------------------------------
@@ -68,6 +70,7 @@ io.on('connection', function(socket) {
         getAdditionalData(socket.id, 'sa', 'point');
         getAdditionalData(socket.id, 'salud', 'point');
         getAdditionalData(socket.id, 'seguridad', 'point');
+        getAdditionalData(socket.id, 'land', 'point');
         getInitialState(socket.id);
         console.log(':: This is a ' + glbs.INITIALIZE + ' request...');
     });
@@ -112,7 +115,7 @@ function getAdditionalData(socketId, table, type) {
               }
               catch (err){}
         }
-        msg.table = 'upz';
+        msg.table = table;
         clients[socketId].emit(glbs.SHOW_ADD_DATA, msg); // Sending to the client the new event...
     });
 
@@ -225,6 +228,20 @@ function getNext(socketId, current) {
 
     geo.geoQuery(parameters, function(json) {
         json.Time = current + 1;
+        clients[socketId].emit(glbs.DRAW_MAP, json); // Sending to the client the new event...
+    });
+}
+
+function getSpecific(socketId, specificTime) {
+    var parameters = {
+        geometry: 'geom',
+        tableName: 'properties_state',
+        where: '"step" = \'' + specificTime + '\'',
+        properties: 'all',
+    };
+
+    geo.geoQuery(parameters, function(json) {
+        json.Time = specificTime;
         clients[socketId].emit(glbs.DRAW_MAP, json); // Sending to the client the new event...
     });
 }

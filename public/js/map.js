@@ -6,6 +6,7 @@ var info = L.control(); // Variable to show additional information about the sel
 var baseMaps = {};
 var overlayMaps = {};
 var equipments;
+var land;
 var UPZlayer;
 var redPrimariaLayer;
 var redSecundariaLayer;
@@ -36,7 +37,8 @@ function addIndicator1Chart(msg){
             columns: [col],
             type: 'line',
             onclick: function(d,i) {
-                //Implement
+                console.log("Asking for simulation step: " + i);
+                getSpecific(socketId, i);
             },
         },
         legend: {
@@ -96,13 +98,19 @@ function showData(msg) {
         }
     }
     else if (msg.type === 'point'){
-        if(baseMaps.Equipments === undefined){
-           baseMaps.Equipments = pointLayer(msg);
-           equipments = msg;
+        if (msg.table === "land") {
+           baseMaps.Land = pointLayer(msg);
+           land = msg;
         }
         else {
-            equipments.features.concat(msg.features);
-            baseMaps.Equipments = pointLayer(msg);
+            if (baseMaps.Equipments === undefined){
+               baseMaps.Equipments = pointLayer(msg);
+               equipments = msg;
+            }
+            else {
+                equipments.features.concat(msg.features);
+                baseMaps.Equipments = pointLayer(msg);
+            }
         }
     }
 }
