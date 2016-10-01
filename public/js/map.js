@@ -38,7 +38,7 @@ function addIndicator1Chart(msg){
             type: 'line',
             onclick: function(d,i) {
                 console.log("Asking for simulation step: " + i);
-                getSpecific(socketId, i);
+                // getSpecific(socketId, i);
             },
         },
         legend: {
@@ -133,7 +133,10 @@ function addLayer () {
     if (equipments !== undefined) baseMaps.Equipments = pointLayer(equipments);
     if (properties !== undefined) {
         overlayMaps.Properties = properties;
-        UPZlayer.addTo(map);
+        if (UPZlayer !== undefined){
+            baseMaps.UPZ = UPZlayer;
+            UPZlayer.addTo(map);
+        } 
         properties.addTo(map);
     }
     console.log(equipments);
@@ -211,6 +214,7 @@ function pointLayer(msg) {
             layer.on({ // When this layer is active (this is a leaflet-provided method)
                 mouseover: function() { // Here we are going to change the color and show the attributes of the object that is under the mouse...
                     if (feature.properties.state === undefined){
+                        info.update(feature.properties);
                         layer.setStyle({
                             fillColor: colorbrewer.PuBu[9][4],
                             radius: 5,
@@ -224,6 +228,7 @@ function pointLayer(msg) {
                     }
                 },
                 mouseout: function() { // When the mouse leaves...
+                    info.update();
                     if (feature.properties.state === undefined){
                         layer.setStyle({
                             fillColor: colorbrewer.PuBu[9][4],
@@ -381,10 +386,10 @@ function polylineLayer(msg) {
 }
 
 function setColorState(state) {
-    if (state === "For sale") return colorbrewer.Dark2[7][4];
-    else if (state === "Seeking tenant") return  colorbrewer.Dark2[7][2];
-    else if (state === "Rented") return colorbrewer.Dark2[7][1];
-    else  return  colorbrewer.Dark2[7][0];
+    if (state === "For sale") return colorbrewer.Accent[4][3];
+    else if (state === "Seeking tenant") return  colorbrewer.Accent[4][2];
+    else if (state === "Rented") return colorbrewer.Accent[4][1];
+    else  return  colorbrewer.Accent[4][0];
 }
 
 function getDivisions() {
