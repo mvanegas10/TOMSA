@@ -103,13 +103,13 @@ function showData(msg) {
            land = msg;
         }
         else {
-            if (baseMaps.Equipments === undefined){
-               baseMaps.Equipments = pointLayer(msg);
+            if (overlayMaps.Equipments === undefined){
+               overlayMaps.Equipments = pointLayer(msg);
                equipments = msg;
             }
             else {
                 equipments.features.concat(msg.features);
-                baseMaps.Equipments = pointLayer(msg);
+                overlayMaps.Equipments = pointLayer(msg);
             }
         }
     }
@@ -130,7 +130,7 @@ function addLayer () {
     if (UPZlayer !== undefined) baseMaps.UPZ = UPZlayer;
     if (redPrimariaLayer !== undefined) baseMaps.RedPrimaria = redPrimariaLayer;
     if (redSecundariaLayer !== undefined) baseMaps.RedSecundaria = redSecundariaLayer;
-    if (equipments !== undefined) baseMaps.Equipments = pointLayer(equipments);
+    if (equipments !== undefined) overlayMaps.Equipments = pointLayer(equipments);
     if (properties !== undefined) {
         overlayMaps.Properties = properties;
         if (UPZlayer !== undefined){
@@ -176,7 +176,7 @@ function addLegends() {
         div.innerHTML += 'Segregation Index<br>';
         for (var i = 0; i < values.length; i++) {
             div.innerHTML +=
-                '<i style="background:' + setMultipolygonColor((values[i] + 0.1)/100) + '" ></i> ' +
+                '<i style="background:' + setMultipolygonColor((values[i] + 0.1)/10) + '" ></i> ' +
                 (values[i]*100 + "%") + (values[i + 1] ? ' &ndash; ' + (values[i + 1]*100 + "%") +'<br>' : ' +');
         }
         return div;
@@ -332,7 +332,7 @@ function multipolygonLayer(msg) {
 }
 
 function setMultipolygonColor(indicator) {
-    indicator = indicator * 100;
+    indicator = indicator * 10;
     if (indicator > 0.83) return colorbrewer.Reds[6][5];
     else if (indicator > 0.67) return colorbrewer.Reds[6][4];
     else if (indicator > 0.50) return colorbrewer.Reds[6][3];

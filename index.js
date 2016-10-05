@@ -57,7 +57,8 @@ io.on('connection', function(socket) {
 
     // App specific methods:
     socket.on(glbs.INITIALIZE, function() {
-        getROP(socket.id);
+        getSegregationIndex(socket.id,0);
+        getROP(socket.id);        
         getData(socket.id, 'red_primaria', 'polyline');
         getAdditionalData(socket.id, 'bienestar', 'point');
         getAdditionalData(socket.id, 'culto', 'point');
@@ -94,7 +95,8 @@ io.on('connection', function(socket) {
 
 
 function getAdditionalData(socketId, table, type) {
-    var query = 'SELECT *, ST_AsText(geom) AS wkt FROM ' + table + '';
+    var query = 'SELECT *, ST_AsText(geom) AS wkt FROM ' + table;
+    // + ' WHERE "codigo_upz" IN (85,81,80,46,112,116,31,30,29,28,27)';
     var parameters = {
         querystring: query,
     };
@@ -126,6 +128,7 @@ function getData(socketId, table, type) {
         geometry: 'geom',
         tableName: table,
         properties: 'all',
+        // where: '"gid" IN (176,784,794,793,798,796,822,819,856,852,849,885,894,891,937,932,938,984,990,986,1029,1028,1076,1077,1113,1114,1117,1165,1164,1218,1221,1220,1280,1281,1284,1332,1330,1373,1368,1374,1418,1416,1455,1453,1487,1533,1527,51,48,52,64,63,76,94,91,90,96,102,101,106,110,109,114,113,118,117,122)',
         debug: '',
     };
 
