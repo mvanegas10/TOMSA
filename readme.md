@@ -26,7 +26,15 @@ export NODE_PATH='/usr/local/lib/node_modules'
 echo "export NODE_PATH='/usr/local/lib/node_modules'" >> ~/.bashrc
 ```
 
-# Project Screenshot
+## Project Screenshot
 ![screenshot](data/example.png)
+
+## Author
+<!-- Contributors table START -->
+| [![Meili Vanegas](https://avatars.githubusercontent.com/mvanegas10?s=100)<br /><sub>Meili Vanegas</sub>](https://github.com/mvanegas10)<br /> |
+| :---: |
+
+<!-- Contributors table END -->
+
 
 
