@@ -1,5 +1,8 @@
-# Project Setup
-## Prerequisites
+# TOMSA
+TOMSA stands for Transport Oriented Modeling for urban denSification Analysis. Visual analytics tool to represent urban simulations using PostgreSQL, PostGIS, NodeJS, JavaScript, HTML and CSS.
+## Getting Started
+Entire implementation developed using NodeJS. See deployment for notes on how to deploy the project on a live system.
+### Prerequisites
 ```
 ### Create project folder
 mkdir -p [pathToProjectFolder]
