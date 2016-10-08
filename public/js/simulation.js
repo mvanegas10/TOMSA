@@ -11,7 +11,6 @@
 
     _this.socket.on(DRAW_MAP, function (msg) {
       console.log(DRAW_MAP+' request: '+msg);
-      _this.time = msg.Time;
       showResults(msg);
     });
 
@@ -35,14 +34,17 @@
     function begin(){
       _this.socket.emit(INITIALIZE);
       _this.startSim = true;
+      _this.time = 0;
     }
 
     function previous(){
       _this.socket.emit(PREVIOUS,_this.time);
+      _this.time = _this.time - 1;
     }
 
     function next(){
       _this.socket.emit(NEXT,_this.time);
+      _this.time = _this.time + 1;
     }
   });
 })();
