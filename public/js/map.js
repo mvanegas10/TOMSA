@@ -16,6 +16,10 @@ var properties;
 // Functions
 // ------------------------------------------------------
 
+function setNewUPZValues(msg){
+    UPZlayer = msg;
+}
+
 //Creates the indicator 1 chart
 function addIndicator1Chart(msg){
     var col = [];
