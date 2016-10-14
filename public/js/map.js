@@ -72,7 +72,7 @@ function addIndicator1Chart(msg){
 
 // Creates the map
 function createMap() {
-    map = L.map('map').setView([4.69, -74.06], 11); // Initial position in the map (lat, long, zoom)
+    map = L.map('map').setView([30.1, -37.4], 8); // Initial position in the map (lat, long, zoom)
     map.addLayer(new L.TileLayer.provider('Esri.WorldGrayCanvas')); // The map provider we are going to use --> You must import the corresponding library in index.html
     map._layersMaxZoom = 20; // Define the maximum zoom in the map
     map._layersMinZoom = 5;
@@ -143,7 +143,6 @@ function addLayer () {
         } 
         properties.addTo(map);
     }
-    console.log(equipments);
     L.control.layers(baseMaps, overlayMaps, {
         position: 'topleft',
         collapsed: false
@@ -258,6 +257,7 @@ function pointLayer(msg) {
             });
         },
         pointToLayer: function(feature, latlng) {
+            console.log(feature);
             return L.circleMarker(latlng, {
                 fillColor: setColorState(feature.properties.state),
                 radius: 4,
