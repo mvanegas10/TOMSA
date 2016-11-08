@@ -137,10 +137,10 @@ function addLayer () {
     if (equipments !== undefined) overlayMaps.Equipments = pointLayer(equipments);
     if (properties !== undefined) {
         overlayMaps.Properties = properties;
-        if (UPZlayer !== undefined){
-            baseMaps.UPZ = UPZlayer;
-            UPZlayer.addTo(map);
-        } 
+        // if (UPZlayer !== undefined){
+        //     baseMaps.UPZ = UPZlayer;
+        //     UPZlayer.addTo(map);
+        // } 
         properties.addTo(map);
     }
     L.control.layers(baseMaps, overlayMaps, {
