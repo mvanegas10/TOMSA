@@ -72,7 +72,7 @@ function addIndicator1Chart(msg){
 
 // Creates the map
 function createMap() {
-    map = L.map('map').setView([4.69, -74.06], 11); // Initial position in the map (lat, long, zoom)
+    map = L.map('map').setView([6.80, -126.60], 9); // Initial position in the map (lat, long, zoom)
     map.addLayer(new L.TileLayer.provider('Esri.WorldGrayCanvas')); // The map provider we are going to use --> You must import the corresponding library in index.html
     map._layersMaxZoom = 20; // Define the maximum zoom in the map
     map._layersMinZoom = 5;
