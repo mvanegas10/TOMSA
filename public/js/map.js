@@ -137,13 +137,12 @@ function addLayer () {
     if (equipments !== undefined) overlayMaps.Equipments = pointLayer(equipments);
     if (properties !== undefined) {
         overlayMaps.Properties = properties;
-        if (UPZlayer !== undefined){
-            baseMaps.UPZ = UPZlayer;
-            UPZlayer.addTo(map);
-        } 
+        // if (UPZlayer !== undefined){
+        //     baseMaps.UPZ = UPZlayer;
+        //     UPZlayer.addTo(map);
+        // } 
         properties.addTo(map);
     }
-    console.log(equipments);
     L.control.layers(baseMaps, overlayMaps, {
         position: 'topleft',
         collapsed: false
@@ -257,6 +256,7 @@ function pointLayer(msg) {
             });
         },
         pointToLayer: function(feature, latlng) {
+            console.log(feature);
             return L.circleMarker(latlng, {
                 fillColor: setColorState(feature.properties.state),
                 radius: 4,
