@@ -247,8 +247,7 @@ function pointLayer(msg) {
                           fillColor: setColorState(feature.properties.state),
                           radius: 4,
                           fillOpacity: 1,
-                          stroke: true,
-                          color: 'black',
+                          stroke: false,
                       }); // --> and set the original style...
                     }
                 },
@@ -262,8 +261,7 @@ function pointLayer(msg) {
                 fillColor: setColorState(feature.properties.state),
                 radius: 4,
                 fillOpacity: 1,
-                stroke: true,
-                color: 'black',
+                stroke: false,
             });
         },
         style: function(feature) {
@@ -280,8 +278,7 @@ function pointLayer(msg) {
                     fillColor: setColorState(feature.properties.state),
                     radius: 4,
                     fillOpacity: 1,
-                    stroke: true,
-                    color: 'black',
+                    stroke: false,
                 };
             }
         }
