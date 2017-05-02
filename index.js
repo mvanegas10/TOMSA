@@ -22,9 +22,9 @@ var clients = {}; // Dictionary to storage client's sessions
 geo.setCredentials({
     type: 'postgis',
     host: 'localhost',
-    user: 'Meili',
+    user: 'meili',
     password: '',
-    database: 'tomsa'
+    database: 'schelling'
 });
 
 // Web server initialization...
@@ -59,7 +59,8 @@ io.on('connection', function(socket) {
     socket.on(glbs.INITIALIZE, function() {
         getSegregationIndex(socket.id,0);
         getROP(socket.id);        
-        getData(socket.id, 'red_primaria', 'polyline', '"gid" IN (176,784,794,793,798,796,822,819,856,852,849,885,894,891,937,932,938,984,990,986,1029,1028,1076,1077,1113,1114,1117,1165,1164,1218,1221,1220,1280,1281,1284,1332,1330,1373,1368,1374,1418,1416,1455,1453,1487,1533,1527,51,48,52,64,63,76,94,91,90,96,102,101,106,110,109,114,113,118,117,122)');
+        // getData(socket.id, 'red_primaria', 'polyline', '"gid" IN (176,784,794,793,798,796,822,819,856,852,849,885,894,891,937,932,938,984,990,986,1029,1028,1076,1077,1113,1114,1117,1165,1164,1218,1221,1220,1280,1281,1284,1332,1330,1373,1368,1374,1418,1416,1455,1453,1487,1533,1527,51,48,52,64,63,76,94,91,90,96,102,101,106,110,109,114,113,118,117,122)');
+        getData(socket.id, 'red_primaria', 'polyline');
         getAdditionalData(socket.id, 'bienestar', 'point');
         getAdditionalData(socket.id, 'culto', 'point');
         getAdditionalData(socket.id, 'cultura', 'point');
@@ -84,9 +85,9 @@ io.on('connection', function(socket) {
 
     socket.on(glbs.NEXT, function(current) {
         console.log(':: This is a ' + glbs.NEXT + ' request...');
-        if (current + 1 == 3) {
-            getData(socket.id, 'red_primaria', 'polyline', '"gid" IN (985,974,973,1022,1020,1018,1015,1014,1013,1011,1002,1001,1006,1005,996,994,442,443,443,435,434,427,425,420,419,417,416,415,412,411,487,483,472,471,468,463,530,578)');
-        }
+        // if (current + 1 == 3) {
+        //     getData(socket.id, 'red_primaria', 'polyline', '"gid" IN (985,974,973,1022,1020,1018,1015,1014,1013,1011,1002,1001,1006,1005,996,994,442,443,443,435,434,427,425,420,419,417,416,415,412,411,487,483,472,471,468,463,530,578)');
+        // }
         getSegregationIndex(socket.id,current + 1);
         getNext(socket.id, current);
     });
