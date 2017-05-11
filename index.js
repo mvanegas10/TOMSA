@@ -3,7 +3,7 @@
 // ------------------------------------------------------
 var app = require('express')(); // WEB Server
 var http = require('http').Server(app);
-// var geo = require('geotabuladb'); // Database operation
+var geo = require('geotabuladb'); // Database operation
 var express = require('express');
 var parse = require('wellknown');
 
