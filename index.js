@@ -36,6 +36,22 @@ app.get('/', function(req, res) {
 
 http.listen(process.env.PORT || port)
 
+var pg = require('pg');
+
+// Database
+
+app.get('/db', function (request, response) {
+  pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+    client.query('SELECT * FROM properties_state', function(err, result) {
+      done();
+      if (err)
+       { console.error(err); response.send("Error " + err); }
+      else
+       { console.log(result); }
+    });
+  });
+});
+
 // ------------------------------------------------------
 // Event Management
 // ------------------------------------------------------

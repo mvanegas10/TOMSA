@@ -12,7 +12,8 @@
     "geotabuladb": "^0.0.12",
     "mathjs": "^3.2.1",
     "socket.io": "^1.4.5",
-    "wellknown": "^0.5.0"
+    "wellknown": "^0.5.0",
+    "pg": "6.x"
   },
   "devDependencies": {},
   "scripts": {
