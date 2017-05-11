@@ -3,7 +3,7 @@
 // ------------------------------------------------------
 var app = require('express')(); // WEB Server
 var http = require('http').Server(app);
-var geo = require('geotabuladb'); // Database operation
+// var geo = require('geotabuladb'); // Database operation
 var express = require('express');
 var parse = require('wellknown');
 
@@ -38,19 +38,23 @@ http.listen(process.env.PORT || port)
 
 var pg = require('pg');
 
+app.get('/db', function (request, response) {
+    getAdditionalData(undefined,'bienestar','point');
+});
+
 // Database
 
-app.get('/db', function (request, response) {
-  pg.connect(process.env.DATABASE_URL, function(err, client, done) {
-    client.query('SELECT * FROM properties_state', function(err, result) {
-      done();
-      if (err)
-       { console.error(err); response.send("Error " + err); }
-      else
-       { console.log(result); }
+function makeQuery(query) {
+    return pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+        return new Promise((resolve, reject) => {
+            client.query(query, function(err, result) {
+                if(err) reject(err);
+                resolve(arg)
+            })            
+        });
     });
-  });
-});
+}
+
 
 // ------------------------------------------------------
 // Event Management
@@ -119,16 +123,16 @@ function getAdditionalData(socketId, table, type) {
         querystring: query,
     };
 
-    geo.query(parameters, function(json) {
+    makeQuery(query).then(function (result){
         var msg = {};
         msg.type = 'point';
         msg.features = [];
-        for (var i = 0; i < json.length; i++) {
+        for (var i = 0; i < result.length; i++) {
             try{
-                var geometry = parse(json[i].wkt);
+                var geometry = parse(result[i].wkt);
                 var properties = {};
                 var type = "Feature";
-                properties.gid = json[i].gid;
+                properties.gid = result[i].gid;
                 properties.type = table;
                 var feature = {geometry:geometry,properties:properties,type:type};
                 msg.features.push(feature);
@@ -136,9 +140,37 @@ function getAdditionalData(socketId, table, type) {
               catch (err){}
         }
         msg.table = table;
-        clients[socketId].emit(glbs.SHOW_ADD_DATA, msg); // Sending to the client the new event...
-    });
-
+        console.log(msg);
+        // clients[socketId].emit(glbs.SHOW_ADD_DATA, msg);
+    })
+    .catch(function (err){ console.log(err);});
+    // pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+    //     client.query(query, function(err, result) {
+    //         done();
+    //         if (err){ 
+    //             console.error(err); response.send("Error " + err); 
+    //         }
+    //         else{ 
+    //             var msg = {};
+    //             msg.type = 'point';
+    //             msg.features = [];
+    //             for (var i = 0; i < result.length; i++) {
+    //                 try{
+    //                     var geometry = parse(result[i].wkt);
+    //                     var properties = {};
+    //                     var type = "Feature";
+    //                     properties.gid = result[i].gid;
+    //                     properties.type = table;
+    //                     var feature = {geometry:geometry,properties:properties,type:type};
+    //                     msg.features.push(feature);
+    //                   }
+    //                   catch (err){}
+    //             }
+    //             msg.table = table;
+    //             clients[socketId].emit(glbs.SHOW_ADD_DATA, msg); // Sending to the client the new event...
+    //         }
+    //     });
+    // });    
 }
 
 function getData(socketId, table, type, specifics) {
