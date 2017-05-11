@@ -1,11 +1,38 @@
 {
   "name": "tomsa",
   "version": "1.0.0",
-  "description": "``` ### Create project folder mkdir -p [pathToProjectFolder] cd [pathToProjectFolder] ### Install NodeJS Modules npm install geotabuladb express socket.io ``` You can use the npm '-g' option if you want to install NodeJS modules globally so it is set up for all projects. ``` npm install -g geotabuladb express socket.io ``` Then, you can link specific modules to your project or define the NODE_PATH environment variable: ``` # To link specific modules: npm link geotabuladb express socket.io",
+  "description": "This is a visual analytics tool to present data for Kobdig simulation results.",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "dependencies": {
+    "angular": "^1.5.0",
+    "angularjs": "^0.0.1",
+    "bootstrap": "^3.3.6",
+    "c3": "^0.4.10",
+    "express": "^4.13.4",
+    "geotabuladb": "^0.0.12",
+    "mathjs": "^3.2.1",
+    "socket.io": "^1.4.5",
+    "wellknown": "^0.5.0"
   },
-  "author": "",
-  "license": "ISC"
+  "devDependencies": {},
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mvanegas10/TOMSA.git"
+  },
+  "keywords": [
+    "TOMSA",
+    "urban",
+    "simulation",
+    "visual",
+    "analytics"
+  ],
+  "author": "Meili Vanegas-Hernandez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mvanegas10/TOMSA/issues"
+  },
+  "homepage": "https://github.com/mvanegas10/TOMSA#readme"
 }
