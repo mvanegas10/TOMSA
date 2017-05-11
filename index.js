@@ -49,7 +49,7 @@ function makeQuery(query) {
         return new Promise((resolve, reject) => {
             client.query(query, function(err, result) {
                 if(err) reject(err);
-                resolve(arg)
+                resolve(result)
             })            
         });
     });
