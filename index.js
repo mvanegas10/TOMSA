@@ -12,7 +12,7 @@ var fs = require('fs');
 
 var glbs = require('./public/js/globals.js'); // With this we made the client and server shared variables available to the server
 
-var port = 3000;
+var port = 8080;
 
 // ------------------------------------------------------
 // Variables
