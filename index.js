@@ -45,13 +45,16 @@ app.get('/db', function (request, response) {
 // Database
 
 function makeQuery(query) {
-    return pg.connect(process.env.DATABASE_URL, function(err, client, done) {
-        return new Promise((resolve, reject) => {
+    pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+        console.log(client);
+        var promise = new Promise((resolve, reject) => {
             client.query(query, function(err, result) {
                 if(err) reject(err);
-                resolve(result)
+                resolve(result);
             })            
         });
+        console.log(promise);
+        return promise;
     });
 }
 
