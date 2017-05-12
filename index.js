@@ -12,7 +12,7 @@ var fs = require('fs');
 
 var glbs = require('./public/js/globals.js'); // With this we made the client and server shared variables available to the server
 
-var port = 3000;
+var port = 5000;
 
 // ------------------------------------------------------
 // Variables
@@ -34,9 +34,8 @@ app.get('/', function(req, res) {
     res.sendFile(__dirname + '/index.html'); // Setting up the server root file...
 });
 
-http.listen(port, function() { // Setting ip the server port...
-    console.log('Server ready and listening on port: ' + port);
-});
+http.listen(process.env.PORT || port);
+
 
 // ------------------------------------------------------
 // Event Management
