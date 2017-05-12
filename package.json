@@ -6,14 +6,15 @@
   "dependencies": {
     "angular": "^1.5.0",
     "angularjs": "^0.0.1",
+    "bluebird": "^3.5.0",
     "bootstrap": "^3.3.6",
     "c3": "^0.4.10",
     "express": "^4.13.4",
     "geotabuladb": "^0.0.12",
     "mathjs": "^3.2.1",
+    "pg": "6.x",
     "socket.io": "^1.4.5",
-    "wellknown": "^0.5.0",
-    "pg": "6.x"
+    "wellknown": "^0.5.0"
   },
   "devDependencies": {},
   "scripts": {
