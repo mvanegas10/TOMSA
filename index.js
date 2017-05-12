@@ -7,6 +7,8 @@ var geo = require('geotabuladb'); // Database operation
 var express = require('express');
 var parse = require('wellknown');
 
+var Promise = require('bluebird');
+
 var io = require('socket.io')(http); // WebSockets handling
 var fs = require('fs');
 
@@ -46,15 +48,10 @@ app.get('/db', function (request, response) {
 
 function makeQuery(query) {
     pg.connect(process.env.DATABASE_URL, function(err, client, done) {
-        console.log(client);
-        var promise = new Promise((resolve, reject) => {
-            client.query(query, function(err, result) {
-                if(err) reject(err);
-                resolve(result);
-            })            
-        });
-        console.log(promise);
-        return promise;
+        client = Promise.promisifyAll(client, {
+            suffix: "AS"
+        });        
+        return client.queryAS(query);
     });
 }
 
