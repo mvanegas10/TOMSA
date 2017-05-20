@@ -24,7 +24,7 @@ geo.setCredentials({
     host: 'localhost',
     user: 'meili',
     password: '',
-    database: 'schelling'
+    database: 'tomsa'
 });
 
 // Web server initialization...
