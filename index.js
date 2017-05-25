@@ -22,8 +22,8 @@ var clients = {}; // Dictionary to storage client's sessions
 geo.setCredentials({
     type: 'postgis',
     host: 'localhost',
-    user: 'meili',
-    password: '',
+    user: 'tomsa',
+    password: 'tomsa',
     database: 'tomsa'
 });
 
@@ -164,11 +164,11 @@ function getInitialState(socketId) {
 
     geo.geoQuery(parameters, function(json) {
         json.Time = 0;
-        fs.appendFile('/Users/Meili/Desktop/dataBuena.json', JSON.stringify(json), 'utf8', function(err) {
-            if (err) {
-                return console.log(err);
-            }
-        });
+        //fs.appendFile('/Users/Meili/Desktop/dataBuena.json', JSON.stringify(json), 'utf8', function(err) {
+        //    if (err) {
+        //        return console.log(err);
+        //    }
+        //});
         clients[socketId].emit(glbs.DRAW_MAP, json); // Sending to the client the new event...
     });
 }
