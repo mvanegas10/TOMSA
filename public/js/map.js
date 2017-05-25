@@ -72,7 +72,7 @@ function addIndicator1Chart(msg){
 
 // Creates the map
 function createMap() {
-    map = L.map('map').setView([4.69, -74.06], 11); // Initial position in the map (lat, long, zoom)
+    map = L.map('map').setView([6.80, -126.60], 9); // Initial position in the map (lat, long, zoom)
     map.addLayer(new L.TileLayer.provider('Esri.WorldGrayCanvas')); // The map provider we are going to use --> You must import the corresponding library in index.html
     map._layersMaxZoom = 20; // Define the maximum zoom in the map
     map._layersMinZoom = 5;
@@ -137,13 +137,12 @@ function addLayer () {
     if (equipments !== undefined) overlayMaps.Equipments = pointLayer(equipments);
     if (properties !== undefined) {
         overlayMaps.Properties = properties;
-        if (UPZlayer !== undefined){
-            baseMaps.UPZ = UPZlayer;
-            UPZlayer.addTo(map);
-        } 
+        // if (UPZlayer !== undefined){
+        //     baseMaps.UPZ = UPZlayer;
+        //     UPZlayer.addTo(map);
+        // } 
         properties.addTo(map);
     }
-    console.log(equipments);
     L.control.layers(baseMaps, overlayMaps, {
         position: 'topleft',
         collapsed: false
@@ -247,8 +246,7 @@ function pointLayer(msg) {
                           fillColor: setColorState(feature.properties.state),
                           radius: 4,
                           fillOpacity: 1,
-                          stroke: true,
-                          color: 'black',
+                          stroke: false,
                       }); // --> and set the original style...
                     }
                 },
@@ -258,12 +256,12 @@ function pointLayer(msg) {
             });
         },
         pointToLayer: function(feature, latlng) {
+            console.log(feature);
             return L.circleMarker(latlng, {
                 fillColor: setColorState(feature.properties.state),
                 radius: 4,
                 fillOpacity: 1,
-                stroke: true,
-                color: 'black',
+                stroke: false,
             });
         },
         style: function(feature) {
@@ -280,8 +278,7 @@ function pointLayer(msg) {
                     fillColor: setColorState(feature.properties.state),
                     radius: 4,
                     fillOpacity: 1,
-                    stroke: true,
-                    color: 'black',
+                    stroke: false,
                 };
             }
         }
