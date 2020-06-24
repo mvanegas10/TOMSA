@@ -27,7 +27,7 @@ echo "export NODE_PATH='/usr/local/lib/node_modules'" >> ~/.bashrc
 ```
 
 ## Project Screenshot
-![screenshot](data/example.png)
+![screenshot](data/TOMSA.gif)
 
 ## Author
 <!-- Contributors table START -->
